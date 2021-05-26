@@ -158,6 +158,7 @@ class GitHubHookService
         $cmd    = $git.' --git-dir='.escapeshellarg("{$path}/.git").' --work-tree='.escapeshellarg($path).' pull origin '.$this->config['branch'];
 
         $this->displayLog("Start deploying for branch '{$branch}'.");
+        $this->displayLog($cmd);
         exec($cmd, $output, $exit);
 
         $msg = join(PHP_EOL."\t", $output);
