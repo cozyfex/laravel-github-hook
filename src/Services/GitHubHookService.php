@@ -145,7 +145,7 @@ class GitHubHookService
         $git = env('GIT_COMMAND', '');
         if (empty($git)) {
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                $git = 'C:\Program Files\Git\bin\git';
+                $git = '"C:\Program Files\Git\bin\git"';
             } else {
                 $git = 'git';
             }
