@@ -142,20 +142,15 @@ class GitHubHookService
 
     protected function triggerPull()
     {
-        $git = env('GIT_COMMAND', '');
-        if (empty($git)) {
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                $git = '"C:\Program Files\Git\bin\git"';
-            } else {
-                $git = 'git';
-            }
-        }
+        $git = env('GIT_COMMAND', 'git');
 
         $output = [];
         $exit   = 0;
         $branch = $this->config['branch'];
         $path   = $this->config['path'];
-        $cmd    = $git.' --git-dir='.escapeshellarg("{$path}/.git").' --work-tree='.escapeshellarg($path).' pull origin '.$this->config['branch'];
+        $cmd    = $git.' --git-dir='.escapeshellarg("{$path}/.git").' --work-tree='.escapeshellarg($path).' pull origin '.$this->config['branch'].' 2>&1';
+
+        // $cmd = $git.' status';
 
         $this->displayLog("Start deploying for branch '{$branch}'.");
         $this->displayLog($cmd);
